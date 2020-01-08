@@ -34,9 +34,12 @@ public class Day1Ass {
         String[] arr = Day1Ass.fileToArr(fileName);
         String[] arrSplit = new String[2];
         String[] hypernyms;
+        
         for (int i = 0; i < arr.length; i++) {
+            ArrayList<String> s = new ArrayList<>();
             arrSplit = arr[i].split(",", 2);
             if (! arr[i].contains(",")) {
+               hypernym.put(arr[i], s);
                 continue;
             }
             //System.out.println(arrSplit[0]);
@@ -45,7 +48,6 @@ public class Day1Ass {
                 if (hypernym.containsKey(arrSplit[0])) {
                     hypernym.get(arrSplit[0]).add(hypernyms[j]);
                 } else {
-                    ArrayList<String> s = new ArrayList<>();
                    s.add(hypernyms[j]);
                    hypernym.put(arrSplit[0], s);
                 }
