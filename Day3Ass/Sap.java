@@ -3,7 +3,7 @@ import java.util.ArrayList;
 //import java.util.ArrayList;
 
 //import edu.princeton.cs.algs4.StdIn;
-public class Sap{
+public class SAP{
     Digraph G;
     BreadthFirstDirectedPaths bfdp;
     BreadthFirstDirectedPaths bfdp1;
