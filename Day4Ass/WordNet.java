@@ -1,22 +1,24 @@
 import java.util.ArrayList;
 //import java.util.Arrays;
 import java.util.HashMap;
+// import edu.princeton.cs.algs4.Digraph;
+// import edu.princeton.cs.algs4.In;
 
 public class WordNet {
-    Digraph obj1;
-    WordNet wn;
-    HashMap<String, ArrayList<String>> synset = new HashMap<>();
-    HashMap<String, ArrayList<String>> hypernym = new HashMap<>();
-    int count = 0;
-    int count1 = 0;
-    String[] nouns1 = new String[100000];
+    private Digraph obj1;
+    private WordNet wn;
+    private HashMap<String, ArrayList<String>> synset = new HashMap<>();
+    private HashMap<String, ArrayList<String>> hypernym = new HashMap<>();
+    private int count = 0;
+    private int count1 = 0;
+    private String[] nouns1 = new String[100000];
 
     private WordNet() {
     }
 
-    public WordNet(String synsets, String hypernyms) throws Exception {
+    public WordNet(String synsets, String hypernyms) {
         if (synsets.equals(null) || hypernyms.equals(null)) {
-            throw new IllegalAccessException("argument should not be null");
+            throw new IllegalArgumentException("argument should not be null");
         }
         parseSynsets(synsets);
         parseHypernym(hypernyms);
@@ -36,12 +38,18 @@ public class WordNet {
 
     // returns all WordNet nouns
     public Iterable<String> nouns() {
+        if (nouns().iterator().equals(null)) {
+            throw new IllegalArgumentException("argument should not be null");
+        }
         return synset.keySet();
 
     }
 
     // is the word a WordNet noun?
     public boolean isNoun(String word) {
+        if (word.equals(null)) {
+            throw new IllegalArgumentException("argument should not be null");
+        }
         return synset.containsKey(word);
     }
 
@@ -50,17 +58,18 @@ public class WordNet {
         if (!isNoun(nounA) || !isNoun(nounB)) {
             throw new IllegalArgumentException("noun is not in wordnet");
         }
-        SAP obj = new SAP(obj1);
         ArrayList<String> nA = synset.get(nounA);
         ArrayList<String> nB = synset.get(nounB);
         ArrayList<Integer> nA1 = new ArrayList<>();
         for (int i = 0; i < nA.size(); i++) {
+            System.out.println(nA.size());
             nA1.add(Integer.parseInt(nA.get(i)));
         }
         ArrayList<Integer> nA2 = new ArrayList<>();
         for (int i = 0; i < nB.size(); i++) {
             nA2.add(Integer.parseInt(nA.get(i)));
         }
+        SAP obj = new SAP(obj1);
         return obj.length(nA1, nA2);
     }
 
@@ -71,7 +80,6 @@ public class WordNet {
         if (!isNoun(nounA) || !isNoun(nounB)) {
             throw new IllegalArgumentException("noun is not in wordnet");
         }
-        SAP obj = new SAP(obj1);
         ArrayList<String> nA = synset.get(nounA);
         ArrayList<String> nB = synset.get(nounB);
         ArrayList<Integer> nA1 = new ArrayList<>();
@@ -82,13 +90,14 @@ public class WordNet {
         for (int i = 0; i < nB.size(); i++) {
             nA2.add(Integer.parseInt(nA.get(i)));
         }
+        SAP obj = new SAP(obj1);
         int i = obj.ancestor(nA1, nA2);
         return nouns1[i];
     }
 
-    private void parseSynsets(String fileName) throws Exception {
+    private void parseSynsets(String fileName) {
         if (fileName.equals(null)) {
-            throw new IllegalAccessException("argument should not be null");
+            throw new IllegalArgumentException("argument should not be null");
         }
         String[] arr = WordNet.fileToArr(fileName);
         String[] arrSplit = new String[3];
@@ -111,9 +120,9 @@ public class WordNet {
         // System.out.println(synset);
     }
 
-    private void parseHypernym(String fileName) throws Exception {
+    private void parseHypernym(String fileName) {
         if (fileName.equals(null)) {
-            throw new IllegalAccessException("argument should not be null");
+            throw new IllegalArgumentException("argument should not be null");
         }
         String[] arr = WordNet.fileToArr(fileName);
         String[] arrSplit = new String[2];
@@ -140,9 +149,9 @@ public class WordNet {
         // System.out.println(hypernym);
     }
 
-    private static String[] fileToArr(String filename) throws Exception {
+    private static String[] fileToArr(String filename) {
         if (filename.equals(null)) {
-            throw new IllegalAccessException("argument should not be null");
+            throw new IllegalArgumentException("argument should not be null");
         }
         ArrayList<String> text = new ArrayList<>();
         //File file = new File(filename);
@@ -156,7 +165,7 @@ public class WordNet {
         return array;
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         WordNet obj = new WordNet();
         String fileName = "synsets.txt";
         String fileName1 = "hypernyms.txt";
