@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 //import java.util.Arrays;
 import java.util.HashMap;
-// import edu.princeton.cs.algs4.Digraph;
-// import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.In;
 
 public class WordNet {
     private Digraph obj1;
@@ -17,7 +18,7 @@ public class WordNet {
     }
 
     public WordNet(String synsets, String hypernyms) {
-        if (synsets.equals(null) || hypernyms.equals(null)) {
+        if (synsets == null || hypernyms == null) {
             throw new IllegalArgumentException("argument should not be null");
         }
         parseSynsets(synsets);
@@ -32,8 +33,8 @@ public class WordNet {
                 count1++;
             }
         }
-        System.out.println(count);
-        System.out.println(count1);
+        //System.out.println(count);
+        //System.out.println(count1);
     }
 
     // returns all WordNet nouns
@@ -47,7 +48,7 @@ public class WordNet {
 
     // is the word a WordNet noun?
     public boolean isNoun(String word) {
-        if (word.equals(null)) {
+        if (word == null) {
             throw new IllegalArgumentException("argument should not be null");
         }
         return synset.containsKey(word);
@@ -67,7 +68,7 @@ public class WordNet {
         }
         ArrayList<Integer> nA2 = new ArrayList<>();
         for (int i = 0; i < nB.size(); i++) {
-            nA2.add(Integer.parseInt(nA.get(i)));
+            nA2.add(Integer.parseInt(nB.get(i)));
         }
         SAP obj = new SAP(obj1);
         return obj.length(nA1, nA2);
@@ -88,7 +89,7 @@ public class WordNet {
         }
         ArrayList<Integer> nA2 = new ArrayList<>();
         for (int i = 0; i < nB.size(); i++) {
-            nA2.add(Integer.parseInt(nA.get(i)));
+            nA2.add(Integer.parseInt(nB.get(i)));
         }
         SAP obj = new SAP(obj1);
         int i = obj.ancestor(nA1, nA2);
@@ -117,7 +118,8 @@ public class WordNet {
                 }
             }
         }
-        // System.out.println(synset);
+        //System.out.println(synset);
+        //System.out.println(Arrays.toString(nouns1));
     }
 
     private void parseHypernym(String fileName) {
@@ -146,7 +148,7 @@ public class WordNet {
                 }
             }
         }
-        // System.out.println(hypernym);
+         //System.out.println(hypernym);
     }
 
     private static String[] fileToArr(String filename) {
@@ -170,5 +172,7 @@ public class WordNet {
         String fileName = "synsets.txt";
         String fileName1 = "hypernyms.txt";
         new WordNet(fileName, fileName1);
+        //System.out.println(Arrays.toString(obj.nouns1));
+        //System.out.println(obj.hypernym);
     }
 }
