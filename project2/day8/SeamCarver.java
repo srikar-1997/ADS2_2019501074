@@ -8,6 +8,9 @@ public class SeamCarver {
     private double[][] energy;
     // create a seam carver object based on the given picture
     public SeamCarver(Picture picture) {
+        if (picture == null) {
+            throw new IllegalArgumentException();
+        }
         this.pict = new Picture(picture);
         energy = energyMat(pict.height(), pict.width());
     }
